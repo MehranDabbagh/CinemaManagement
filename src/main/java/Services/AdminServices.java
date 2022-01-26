@@ -13,17 +13,17 @@ public class AdminServices {
     private AdminRepositories adminRepositories=new AdminRepositories(PostgresConnection.getInstance().getConnection());
     private CinemaRepositories cinemaRepositories=new CinemaRepositories(PostgresConnection.getInstance().getConnection());
     private Admin loggedInAdmin;
-    public void register(String userName,String password) throws SQLException {
+    public void register(String userName,String password) {
         adminRepositories.register(userName,password);
     }
-    public Boolean login(String userName,String password) throws SQLException {
+    public Boolean login(String userName,String password)  {
       loggedInAdmin=  adminRepositories.login(userName, password);
       if(loggedInAdmin==null){
           return false;
       }
       return true;
     }
-    public void verification(String cinema_name) throws SQLException {
+    public void verification(String cinema_name)  {
         cinemaRepositories.showingUnVerifiedCinemas();
       int a= adminRepositories.verification(cinema_name);
 if(a>0){

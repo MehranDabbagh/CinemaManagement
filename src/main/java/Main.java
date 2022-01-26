@@ -1,6 +1,5 @@
 import CustomExceptions.DateFormatException;
 import CustomExceptions.OutOfRangeInputException;
-import REPOSITORIES.REPOSITORIES;
 import Services.AdminServices;
 import Services.CinemaService;
 import Services.PurchaserServices;
@@ -9,7 +8,6 @@ import Services.TicketService;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.InputMismatchException;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -20,7 +18,7 @@ public class Main {
     private  static PurchaserServices purchaserServices=new PurchaserServices();
     private  static TicketService ticketService=new TicketService();
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
+    public static void main(String[] args)  {
         Boolean condition = true;
         String menu = "undefined";
         while (condition) {
@@ -72,7 +70,7 @@ public class Main {
 
 
     }
-    public static void adminMenu() throws SQLException {
+    public static void adminMenu()  {
         Boolean condition=true;
         while(condition){
             try {
@@ -108,7 +106,7 @@ public class Main {
             }
         }
     }
-    public static void cinemaMenu() throws SQLException, ParseException {
+    public static void cinemaMenu() {
         Boolean condition=true;
         while(condition){
             try {
@@ -159,7 +157,7 @@ public class Main {
             }
         }
     }
-    public static void purchaseMenu() throws SQLException, ParseException {
+    public static void purchaseMenu()  {
         Boolean condition=true;
         while(condition){
             try {
@@ -209,7 +207,7 @@ public class Main {
             }
         }
     }
-    public static void registerMenu() throws SQLException {
+    public static void registerMenu()  {
         boolean condition = true;
         while (condition) {
             try {

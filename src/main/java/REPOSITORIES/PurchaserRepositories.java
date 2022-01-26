@@ -7,24 +7,27 @@ import java.sql.*;
 import java.util.Objects;
 
 public class PurchaserRepositories {
-Connection connection= PostgresConnection.getInstance().getConnection();
+Connection connection;
 PreparedStatement preparedStatement;
-Statement statement;
-
     public PurchaserRepositories(Connection connection) {
         this.connection = connection;
     }
 
-    public void register(String userName, String password) throws SQLException {
-    String sql="insert into purchaser(username,password) values(?,?)";
-    preparedStatement=connection.prepareStatement(sql);
-    if( userName!=null && password!=null){
-        preparedStatement.setString(1,userName);
-        preparedStatement.setString(2,password);
-        preparedStatement.executeUpdate();
-    }else System.out.println("please try again,something is null!");
+    public void register(String userName, String password)  {
+        try {
+            String sql = "insert into purchaser(username,password) values(?,?)";
+            preparedStatement = connection.prepareStatement(sql);
+            if (userName != null && password != null) {
+                preparedStatement.setString(1, userName);
+                preparedStatement.setString(2, password);
+                preparedStatement.executeUpdate();
+            } else System.out.println("please try again,something is null!");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 }
-public Purchaser login(String userName,String password) throws SQLException {
+public Purchaser login(String userName,String password) {
+        try{
     String purchase="select * from purchaser ";
     preparedStatement=connection.prepareStatement(purchase);
     ResultSet purchaseResult = preparedStatement.executeQuery();
@@ -34,9 +37,13 @@ public Purchaser login(String userName,String password) throws SQLException {
             return purchaser ;
         }
     }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     return null;
 }
-public void reserve(int filmId,int quantity,Purchaser loggedInPurchase) throws SQLException {
+public void reserve(int filmId,int quantity,Purchaser loggedInPurchase)  {
+        try{
     preparedStatement= connection.prepareStatement("select * from ticket where id=? ");
     preparedStatement.setInt(1,filmId);
     ResultSet resultSet=preparedStatement.executeQuery();
@@ -53,9 +60,14 @@ public void reserve(int filmId,int quantity,Purchaser loggedInPurchase) throws S
             preparedStatement.setInt(2, resultSet.getInt("id"));
             preparedStatement.executeUpdate();
         } else System.out.println("there is not enough quantity please try again with less number");
+
     }else System.out.println("there is no film with this id");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 }
-public void showingShopBasket(Purchaser loggedInPurchaser) throws SQLException {
+public void showingShopBasket(Purchaser loggedInPurchaser) {
+        try{
     preparedStatement=connection.prepareStatement("select * from reserve where user_name=?");
     preparedStatement.setString(1, loggedInPurchaser.getUserName());
     ResultSet resultSet=preparedStatement.executeQuery();
@@ -72,5 +84,8 @@ public void showingShopBasket(Purchaser loggedInPurchaser) throws SQLException {
 
     }
     System.out.println("total price: "+sum+"$");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 }
 }
