@@ -17,7 +17,6 @@ public class Main {
     private static CinemaService cinemaService=new CinemaService();
     private  static PurchaserServices purchaserServices=new PurchaserServices();
     private  static TicketService ticketService=new TicketService();
-
     public static void main(String[] args)  {
         Boolean condition = true;
         String menu = "undefined";
